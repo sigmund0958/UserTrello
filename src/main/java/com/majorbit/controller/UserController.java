@@ -20,7 +20,7 @@ public class UserController {
 	private UserDAO dao;
 	
 	@GetMapping("/read")
-	public Object read(@RequestParam String email) {
+	public Object read(@RequestParam String email, @RequestParam String password) {
 		User_Trello_Fazi check= dao.read(email);
 		if(check!=null) {
 			return check;

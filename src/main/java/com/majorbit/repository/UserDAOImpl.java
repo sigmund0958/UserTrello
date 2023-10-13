@@ -1,6 +1,10 @@
 package com.majorbit.repository;
 
 
+import java.util.List;
+
+import javax.persistence.Query;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
@@ -71,6 +75,24 @@ public class UserDAOImpl implements UserDAO{
 			session.close();
 		}
 		
+	}
+
+	@Override
+	public User_Trello_Fazi login(String email, String password) {
+		
+		Session session= HIbernateUtil.getSession();
+
+		Query query= session.createQuery("from User_Trello_Fazi u where u.email= :email and u.password= :psw");
+		query.setParameter("email", email);
+		query.setParameter("psw", password);
+		
+		List<User_Trello_Fazi> list= query.getResultList();
+		
+		User_Trello_Fazi u= list.get(0);
+		
+		session.close();
+		
+		return u;
 	}
 
 }

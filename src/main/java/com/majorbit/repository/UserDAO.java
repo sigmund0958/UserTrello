@@ -6,6 +6,7 @@ public interface UserDAO {
 	
 	public void create(User_Trello_Fazi u);
 	public User_Trello_Fazi read(String email);
+	public User_Trello_Fazi login(String email, String password);
 	public void update(User_Trello_Fazi u);
 	public void delete(User_Trello_Fazi u);
 
