@@ -65,8 +65,6 @@ public class RichiesteController {
 	
 	@PostMapping("/createRichiesta")
 	public String create(@RequestBody Richieste_Fazi r) {
-		Richieste_Fazi check= dao.read(r.getId());
-		if(check==null) {
 			User_Trello_Fazi mitt= daoUser.read(r.getSendingUser().getEmail());
 			if(mitt!=null) {
 				User_Trello_Fazi rec= daoUser.read(r.getReceivingUser().getEmail());
@@ -84,9 +82,6 @@ public class RichiesteController {
 			}else {
 				return "L'user mittente non esiste";
 			}			
-		}else {
-			return "La richiesta esiste gia'";
-		}
 	}
 	@PutMapping("/updateRichiesta")
 	public String update(@RequestBody Richieste_Fazi r) {
