@@ -71,13 +71,18 @@ public class RichiesteController {
 			if(mitt!=null) {
 				User_Trello_Fazi rec= daoUser.read(r.getReceivingUser().getEmail());
 				if(rec!=null) {
-					boolean flag= statusCheck(r.getStatus());
-					if(flag) {
-						dao.create(r);
-						return "Richiesta inviata";
+					Richieste_Fazi check= dao.readCombo(mitt, rec);
+					if(check==null) {
+						boolean flag= statusCheck(r.getStatus());
+						if(flag) {
+							dao.create(r);
+							return "Richiesta inviata";
+						}else {
+							return "Lo status deve essere 'accaettata', 'rifiutata' o 'in attesa'";
+						}
 					}else {
-						return "Lo status deve essere 'accaettata', 'rifiutata' o 'in attesa'";
-					}					
+						return "Esiste gia' tale richiesta";
+					}										
 				}else {
 					return "L'user ricevente non esiste";
 				}

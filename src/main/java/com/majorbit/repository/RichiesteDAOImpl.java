@@ -102,4 +102,21 @@ public class RichiesteDAOImpl implements RichiesteDAO{
 		return list;
 	}
 
+	@Override
+	public Richieste_Fazi readCombo(User_Trello_Fazi u1, User_Trello_Fazi u2) {
+
+		Session session= HIbernateUtil.getSession();
+		
+		Query query= session.createQuery("from Richieste_Fazi r where r.receivingUser= :id and r.sendingUser= :id1 or r.receivingUser= :id1 and r.sendingUser= :id");
+		query.setParameter("id",u1.getEmail());
+		query.setParameter("id1", u2.getEmail());
+		
+		List<Richieste_Fazi> list= query.getResultList();
+		Richieste_Fazi sol= list.get(0);
+		
+		session.close();
+		
+		return sol;
+	}
+
 }
