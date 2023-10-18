@@ -74,7 +74,7 @@ public class RichiesteController {
 					boolean flag= statusCheck(r.getStatus());
 					if(flag) {
 						dao.create(r);
-						return "Richiesta creata";
+						return "Richiesta inviata";
 					}else {
 						return "Lo status deve essere 'accaettata', 'rifiutata' o 'in attesa'";
 					}					
