@@ -107,12 +107,17 @@ public class RichiesteDAOImpl implements RichiesteDAO{
 
 		Session session= HIbernateUtil.getSession();
 		
-		Query query= session.createQuery("from Richieste_Fazi r where r.receivingUser= :id and r.sendingUser= :id1 or r.receivingUser= :id1 and r.sendingUser= :id");
-		query.setParameter("id",u1.getEmail());
-		query.setParameter("id1", u2.getEmail());
+		Query query= session.createQuery("from Richieste_Fazi r where r.receivingUser= :id1 and r.sendingUser= :id2 or r.receivingUser= :id2 and r.sendingUser= :id1");
+		query.setParameter("id1",u1);
+		query.setParameter("id2", u2);
 		
+		Richieste_Fazi sol;
 		List<Richieste_Fazi> list= query.getResultList();
-		Richieste_Fazi sol= list.get(0);
+		if(list.size()!=0) {
+			sol= list.get(0);
+		}else {
+			sol=null;
+		}
 		
 		session.close();
 		
