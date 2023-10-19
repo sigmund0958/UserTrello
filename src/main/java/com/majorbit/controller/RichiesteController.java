@@ -101,7 +101,11 @@ public class RichiesteController {
 					boolean flag= statusCheck(r.getStatus());
 					if(flag) {
 						dao.update(r);
-						return "Richiesta modificata";
+						if(r.getStatus().equals("accettata")) {
+							return "Richiesta accettata";
+						}else{
+							return "Richiesta rifiutata";
+						}
 					}else {
 						return "Lo status deve essere 'accaettata', 'rifiutata' o 'in attesa'";
 					}
