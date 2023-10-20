@@ -92,22 +92,26 @@ public class RichiesteController {
 	}
 	@PutMapping("/updateRichiesta")
 	public String update(@RequestBody Richieste_Fazi r) {
-		Richieste_Fazi check= dao.read(r.getId());
-		if(check!=null) {
 			User_Trello_Fazi mitt= daoUser.read(r.getSendingUser().getEmail());
 			if(mitt!=null) {
 				User_Trello_Fazi rec= daoUser.read(r.getReceivingUser().getEmail());
 				if(rec!=null) {
-					boolean flag= statusCheck(r.getStatus());
-					if(flag) {
-						dao.update(r);
-						if(r.getStatus().equals("accettata")) {
-							return "Richiesta accettata";
-						}else{
-							return "Richiesta rifiutata";
-						}
+					Richieste_Fazi check1= dao.readCombo(mitt, rec);
+					if(check1!=null) {
+						boolean flag= statusCheck(r.getStatus());
+						if(flag) {
+							r.setId(check1.getId());
+							dao.update(r);
+							if(r.getStatus().equals("accettata")) {
+								return "Richiesta accettata";
+							}else{
+								return "Richiesta rifiutata";
+							}
+						}else {
+							return "Lo status deve essere 'accaettata', 'rifiutata' o 'in attesa'";
+						}			
 					}else {
-						return "Lo status deve essere 'accaettata', 'rifiutata' o 'in attesa'";
+						return "Esiste gia' tale richiesta";
 					}
 				}else {
 					return "L'user ricevente non esiste";
@@ -115,10 +119,7 @@ public class RichiesteController {
 			}else {
 				return "L'user mittente non esiste";
 			}		
-		}else {
-			return "La richiesta inserita non esiste";
 		}
-	}
 	@DeleteMapping("/deleteRichiesta/{id}")
 	public String delete(@PathVariable Integer id) {
 		Richieste_Fazi check= dao.read(id);

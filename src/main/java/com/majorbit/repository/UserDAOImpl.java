@@ -9,7 +9,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 
-import com.majorbit.config.HIbernateUtil;
+import com.majorbit.config.HibernateUtil;
 import com.majorbit.model.User_Trello_Fazi;
 
 @Repository
@@ -18,7 +18,7 @@ public class UserDAOImpl implements UserDAO{
 	@Override
 	public void create(User_Trello_Fazi u) {
 		
-		Session session= HIbernateUtil.getSession();
+		Session session= HibernateUtil.getSession();
 		Transaction transaction= session.beginTransaction();
 		try {
 			session.save(u);
@@ -34,7 +34,7 @@ public class UserDAOImpl implements UserDAO{
 	@Override
 	public User_Trello_Fazi read(String email) {
 		
-		Session session= HIbernateUtil.getSession();
+		Session session= HibernateUtil.getSession();
 
 		User_Trello_Fazi u= session.get(User_Trello_Fazi.class, email);
 		
@@ -46,7 +46,7 @@ public class UserDAOImpl implements UserDAO{
 	@Override
 	public void update(User_Trello_Fazi u) {
 		
-		Session session=HIbernateUtil.getSession();
+		Session session=HibernateUtil.getSession();
 		Transaction transaction= session.beginTransaction();
 		try {
 			session.update(u);
@@ -63,7 +63,7 @@ public class UserDAOImpl implements UserDAO{
 	@Override
 	public void delete(User_Trello_Fazi u) {
 		
-		Session session=HIbernateUtil.getSession();
+		Session session=HibernateUtil.getSession();
 		Transaction transaction= session.beginTransaction();
 		try {
 			session.delete(u);
@@ -80,7 +80,7 @@ public class UserDAOImpl implements UserDAO{
 	@Override
 	public User_Trello_Fazi login(String email, String password) {
 		
-		Session session= HIbernateUtil.getSession();
+		Session session= HibernateUtil.getSession();
 
 		Query query= session.createQuery("from User_Trello_Fazi u where u.email= :email and u.password= :psw");
 		query.setParameter("email", email);

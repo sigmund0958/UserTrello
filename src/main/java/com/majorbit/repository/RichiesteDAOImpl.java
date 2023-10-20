@@ -8,7 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 
-import com.majorbit.config.HIbernateUtil;
+import com.majorbit.config.HibernateUtil;
 import com.majorbit.model.Richieste_Fazi;
 import com.majorbit.model.User_Trello_Fazi;
 
@@ -18,7 +18,7 @@ public class RichiesteDAOImpl implements RichiesteDAO{
 	@Override
 	public void create(Richieste_Fazi r) {
 		
-		Session session=HIbernateUtil.getSession();
+		Session session=HibernateUtil.getSession();
 		Transaction transaction= session.beginTransaction();
 		try {
 			session.save(r);
@@ -33,7 +33,7 @@ public class RichiesteDAOImpl implements RichiesteDAO{
 
 	@Override
 	public Richieste_Fazi read(Integer id) {
-		Session session= HIbernateUtil.getSession();
+		Session session= HibernateUtil.getSession();
 		
 		Richieste_Fazi r= session.get(Richieste_Fazi.class, id);
 		
@@ -44,7 +44,7 @@ public class RichiesteDAOImpl implements RichiesteDAO{
 
 	@Override
 	public void update(Richieste_Fazi r) {
-		Session session=HIbernateUtil.getSession();
+		Session session=HibernateUtil.getSession();
 		Transaction transaction= session.beginTransaction();
 		try {
 			session.update(r);
@@ -59,7 +59,7 @@ public class RichiesteDAOImpl implements RichiesteDAO{
 
 	@Override
 	public void delete(Richieste_Fazi r) {
-		Session session=HIbernateUtil.getSession();
+		Session session=HibernateUtil.getSession();
 		Transaction transaction= session.beginTransaction();
 		try {
 			session.delete(r);
@@ -75,7 +75,7 @@ public class RichiesteDAOImpl implements RichiesteDAO{
 	@Override
 	public List<Richieste_Fazi> readMittente(User_Trello_Fazi u) {
 
-		Session session= HIbernateUtil.getSession();
+		Session session= HibernateUtil.getSession();
 		
 		Query query= session.createQuery("from Richieste_Fazi r where r.sendingUser= :id");
 		query.setParameter("id", u);
@@ -90,7 +90,7 @@ public class RichiesteDAOImpl implements RichiesteDAO{
 	@Override
 	public List<Richieste_Fazi> readRicevente(User_Trello_Fazi u) {
 
-		Session session= HIbernateUtil.getSession();
+		Session session= HibernateUtil.getSession();
 		
 		Query query= session.createQuery("from Richieste_Fazi r where r.receivingUser= :id");
 		query.setParameter("id",u);
@@ -105,7 +105,7 @@ public class RichiesteDAOImpl implements RichiesteDAO{
 	@Override
 	public Richieste_Fazi readCombo(User_Trello_Fazi u1, User_Trello_Fazi u2) {
 
-		Session session= HIbernateUtil.getSession();
+		Session session= HibernateUtil.getSession();
 		
 		Query query= session.createQuery("from Richieste_Fazi r where r.receivingUser= :id1 and r.sendingUser= :id2 or r.receivingUser= :id2 and r.sendingUser= :id1");
 		query.setParameter("id1",u1);
